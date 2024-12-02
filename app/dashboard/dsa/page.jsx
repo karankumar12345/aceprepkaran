@@ -42,8 +42,8 @@ const Page = () => {
     Language: ${formData.language}. 
     Each question should include:
     1. The question itself.
-    2. Two input examples (input and expected output).
-    3. Code solutions (brute force and optimized) in JSON format. 
+    2. Two input_examples (input and expected output).
+   
     IMPORTANT: Please return a valid JSON response, without any extra text or markdown.`;
 
     try {

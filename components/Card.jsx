@@ -4,14 +4,14 @@ import { HoverEffect } from "../components/ui/card-hover-effect";
 
 function Card({ data,linkto }) {
   return (
-    <div className="mt-10">
+    <div className="">
       <HoverEffect
         items={data?.map((webinar) => ({
           title: webinar.name,
           description: webinar.category,
           difficulty: webinar.difficulty,
           language: webinar.language,
-          link: `dashboard/${linkto}/${webinar.DevelopmentMCQId || webinar.DsaMcqId}/feedback`, // Adjust the ID field accordingly
+          link: `dashboard/development/${webinar.DevelopmentMCQId || webinar.DsaMcqId}/feedback`, // Adjust the ID field accordingly
         }))}
       />
     </div>

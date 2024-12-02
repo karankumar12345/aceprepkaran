@@ -4,7 +4,7 @@ import { HoverEffect } from "../components/ui/card-hover-effect";
 
 function DsaCard({ data }) {
   return (
-    <div className="mt-10">
+    <div className="">
       <HoverEffect
         items={data?.map((webinar) => ({
           title: webinar.name,

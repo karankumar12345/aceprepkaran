@@ -33,6 +33,7 @@ const CodeEditor = ({language, activequestionindex, mockInterviewQuestion,interv
         {
           "feedback": "Your feedback here",
           "rating": "Your rating here"
+          "code":"Your code here optimized and brute force"
         }`;
 
       const result = await chatSession.sendMessage(feedbackPrompt);
