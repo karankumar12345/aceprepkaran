@@ -65,8 +65,7 @@ export default function RootLayout({ children }) {
  <ClerkProvider>
  <html lang="en">
  <head>
-      <meta name="google-site-verification" content="google880c9fd3ac54d264.html" />
-
+ <meta name="google-site-verification" content="EMRmOscRW_F2FevSrX3DYYlXCsXA5A80jolVHKYJG8Y" />
         <link rel="icon" href="/karankumar.jpg" sizes="any" />
         <meta property="og:image" content="https://photos.fife.usercontent.google.com/pw/AP1GczP3DE3kpLXWFTYZfHzGYDysfdnCrjctV91nNg-PQ_ftJl74EJhsV_lI=w958-h539-s-no-gm?authuser=0" />
         <meta name="twitter:image" content="https://photos.fife.usercontent.google.com/pw/AP1GczP3DE3kpLXWFTYZfHzGYDysfdnCrjctV91nNg-PQ_ftJl74EJhsV_lI=w958-h539-s-no-gm?authuser=0" />
