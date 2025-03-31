@@ -1,6 +1,4 @@
-import type { MetadataRoute } from 'next';
-
-export default function sitemap(): MetadataRoute.Sitemap {
+export default function sitemap() {
   return [
     {
       url: 'https://aceprepkaran-lucx.vercel.app/', // Replace with your actual domain
@@ -9,11 +7,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1.0, // Highest priority because it's the only page
     },
     {
-      url: 'https://aceprepkaran-lucx.vercel.app/dashboard',
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.5,
+        url: 'https://aceprepkaran-lucx.vercel.app/dashboard',
+        lastModified: new Date(),
+        changeFrequency: 'weekly',
+        priority: 0.5,
     },
- 
   ];
 }
