@@ -31,10 +31,11 @@ function Navbar({
           </div>
         </MenuItem>
   
-        <MenuItem setActive={setActive} active={active} item="Pricing">
+        <MenuItem setActive={setActive} active={active} item="Home">
           <div className="flex flex-col space-y-4 text-sm">
             <HoveredLink href="/">Home Page </HoveredLink>
             <HoveredLink href="/dashboard">Dashboard</HoveredLink>
+            <HoveredLink href="/sign-in">Login</HoveredLink>
            
           </div>
         </MenuItem>

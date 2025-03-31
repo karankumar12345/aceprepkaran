@@ -34,18 +34,54 @@ const Page = () => {
     e.preventDefault();
     setLoading(true);
 
-    const inputPrompt = `Generate 3 DSA interview questions with answers based on the following details:
-    Name: ${formData.name}
-    Years of Experience: ${formData.experience}
-    DSA Topics: ${formData.dsaTopics}
-    Proficiency Level: ${formData.level}
-    Language: ${formData.language}. 
+    const inputPrompt = `
+    Generate 3 DSA interview questions with answers based on the following details:
+    
+    - Name: ${formData.name}
+    - Years of Experience: ${formData.experience}
+    - DSA Topics: ${formData.dsaTopics}
+    - Proficiency Level: ${formData.level}
+    - Preferred Programming Language: ${formData.language}
+    
     Each question should include:
     1. The question itself.
-    2. Two input_examples (input and expected output).
-   
-    IMPORTANT: Please return a valid JSON response, without any extra text or markdown.`;
-
+    2. Two input examples, each containing:
+       - "input": a test case in a relevant format
+       - "output": the expected result for that input
+    
+    The response should be a **valid JSON object** structured as follows:
+    
+    {
+      "questions": [
+        {
+          "question": "Your DSA question here",
+          "input_examples": [
+            { "input": "test case 1", "output": "expected result 1" },
+            { "input": "test case 2", "output": "expected result 2" }
+          ]
+        },
+        {
+          "question": "Another DSA question",
+          "input_examples": [
+            { "input": "test case 1", "output": "expected result 1" },
+            { "input": "test case 2", "output": "expected result 2" }
+          ]
+        },
+        {
+          "question": "Third DSA question",
+          "input_examples": [
+            { "input": "test case 1", "output": "expected result 1" },
+            { "input": "test case 2", "output": "expected result 2" }
+          ]
+        }
+      ]
+    }
+    
+    **IMPORTANT:**  
+    - Return only the JSON object, without any additional text, explanations, or markdown formatting.
+    - Ensure the JSON is well-formed and parsable.
+    `;
+    
     try {
       const result = await chatSession.sendMessage(inputPrompt);
       const responseText = await result.response.text();

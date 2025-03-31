@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import React from "react";
+import Head from "next/head";
 import Question from "./_components/Question";
 import { Button } from "@/components/ui/button";
 import { useRouter, useParams } from "next/navigation";
@@ -37,7 +38,7 @@ const Page = () => {
       if (result.length > 0) {
         try {
           const jsonInterviewResp = JSON.parse(result[0].jsondevmcqResp);
-          setInterviewDetails(jsonInterviewResp.questions); // Updated to directly use questions array
+          setInterviewDetails(jsonInterviewResp.questions);
         } catch (error) {
           console.error("Error parsing JSON data:", error);
           setError("Invalid interview data format.");
@@ -70,17 +71,12 @@ const Page = () => {
   const handleSubmit = async () => {
     const interviewId = params.interviewId;
     const userEmail = user?.primaryEmailAddress?.emailAddress || "";
-  
+
     try {
-      // Iterate over all interview questions and update or insert each answer
       await Promise.all(
         interviewDetails.map(async (question, index) => {
-          const userAnswer = selectedOptions[index] || ""; // Use an empty string if no answer is selected
-  
-          console.log("Processing answer for question:", question.question);
-          console.log("User Answer:", userAnswer);
-  
-          // Check for existing answer in the database
+          const userAnswer = selectedOptions[index] || "";
+
           const existingAnswer = await db
             .select()
             .from(DeveMCQAnswer)
@@ -91,16 +87,14 @@ const Page = () => {
                 eq(DeveMCQAnswer.userEmail, userEmail)
               )
             );
-  
+
           if (existingAnswer.length > 0) {
-            // If an existing answer is found, update it
-            console.log("Updating existing answer:", existingAnswer[0].id);
             await db
               .update(DeveMCQAnswer)
               .set({
-                userAnswers: userAnswer, // Update user answer
-                correctAnswers: question.correctAnswer, // Correct answer from question
-                createdOn: new Date(), // Update timestamp
+                userAnswers: userAnswer,
+                correctAnswers: question.correctAnswer,
+                createdOn: new Date(),
               })
               .where(
                 and(
@@ -110,14 +104,12 @@ const Page = () => {
                 )
               );
           } else {
-            // If no existing answer is found, insert a new one
-            console.log("Inserting new answer for question:", question.question);
             await db.insert(DeveMCQAnswer).values({
               DevelopmentMCQId: uuidv4(),
               interviewIdRef: interviewId,
               questions: question.question,
               correctAnswers: question.correctAnswer,
-              userAnswers: userAnswer, // User's answer
+              userAnswers: userAnswer,
               userEmail,
               createdBy: userEmail,
               createdOn: new Date(),
@@ -125,8 +117,7 @@ const Page = () => {
           }
         })
       );
-  
-      console.log("All answers processed successfully.");
+
       setTimeout(() => {
         router.push(`/dashboard/development/${interviewId}/feedback`);
       }, 2000);
@@ -135,10 +126,29 @@ const Page = () => {
       alert("Failed to submit answers: " + error.message);
     }
   };
-  
-  
+
   return (
     <div className="scroll-smooth">
+      <Head>
+        <title>Development MCQ | AcePrep</title>
+        <meta name="description" content="AcePrep's development MCQ helps you test and refine your programming knowledge with real-world interview questions." />
+        <meta name="keywords" content="AcePrep,AcePrep Development MCQ, Development MCQ, Tech Interviews, Programming, Web Development, DSA, Coding Practice, Full-Stack Development" />
+        <meta name="author" content="Karan Kumar" />
+
+        {/* Open Graph (for social media previews) */}
+        <meta property="og:title" content="Development MCQ | AcePrep" />
+        <meta property="og:description" content="AcePrep's development MCQ helps you test and refine your programming knowledge with real-world interview questions." />
+        <meta property="og:url" content={`https://aceprepkaran-lucx.vercel.app/dashboard/development/${params.interviewId}/start`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://photos.fife.usercontent.google.com/pw/AP1GczP3DE3kpLXWFTYZfHzGYDysfdnCrjctV91nNg-PQ_ftJl74EJhsV_lI=w958-h539-s-no-gm?authuser=0" />
+
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Development MCQ | AcePrep" />
+        <meta name="twitter:description" content="AcePrep's development MCQ helps you test and refine your programming knowledge with real-world interview questions." />
+        <meta name="twitter:image" content="https://photos.fife.usercontent.google.com/pw/AP1GczP3DE3kpLXWFTYZfHzGYDysfdnCrjctV91nNg-PQ_ftJl74EJhsV_lI=w958-h539-s-no-gm?authuser=0" />
+      </Head>
+
       {loading ? (
         <p>Loading...</p>
       ) : error ? (

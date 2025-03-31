@@ -16,7 +16,7 @@ const Question = ({ questions, activeQuestionIndex, selectedOption, onOptionSele
   }
 
   const currentQuestion = questions[activeQuestionIndex]; // Correctly reference the current question
-
+console.log(currentQuestion)
   return (
     <div className="p-5 border rounded-lg bg-gray-100 animate-fadeIn">
       <h2 className="text-lg font-semibold mb-3">Question #{activeQuestionIndex + 1}</h2>

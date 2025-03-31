@@ -66,6 +66,16 @@ const FeedbackPage = ({ params }) => {
   const isCorrect = currentFeedback?.userAnswers === currentFeedback?.correctAnswers;
 
   return (
+    <>
+    <Head>
+    <title>Interview Feedback - Question Review</title>
+    <meta name="description" content="Review your interview questions, answers, and feedback to improve your performance." />
+    <meta name="keywords" content="interview feedback,AcePrep interview feedback, MCQ answers, coding practice, test results, learning platform" />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:title" content="Interview Feedback - Question Review" />
+    <meta property="og:description" content="Check your answers, correct solutions, and explanations for interview questions." />
+    <meta property="og:type" content="website" />
+  </Head>
     <div className='p-10'>
       <h2 className='text-3xl font-bold text-green-900'>Feedback</h2>
       <h3 className='font-bold text-2xl'>Question #{currentQuestionIndex + 1}</h3>
@@ -113,6 +123,7 @@ const FeedbackPage = ({ params }) => {
         </p>
       </div>
     </div>
+    </>
   );
 };
 

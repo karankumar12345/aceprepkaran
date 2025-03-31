@@ -25,10 +25,6 @@ const Page = () => {
 
   const [selectedOptions, setSelectedOptions] = useState({});
 
-  useEffect(() => {
-    fetchInterviewDetails();
-  }, [params.interviewId]); // Only fetch when interviewId changes
-
   const fetchInterviewDetails = async () => {
     setLoading(true);
     setError(null);
@@ -37,13 +33,18 @@ const Page = () => {
         .select()
         .from(Interview)
         .where(eq(Interview.interviewId, interviewId));
-
-        console.log(result)
-    
-
+  
+      if (!result.length || !result[0].jsoninterResp) {
+        throw new Error("Invalid interview data");
+      }
+  
       const jsonInterviewResp = JSON.parse(result[0].jsoninterResp);
-      setInterviewDetails(jsonInterviewResp);
-      console.log(interviewDetails)
+  
+      console.log("Fetched interview details:", jsonInterviewResp);
+      const interviewQuestions = jsonInterviewResp?.questions || [];
+      console.log(interviewQuestions)
+setInterviewDetails(interviewQuestions)
+      // Ensure this updates the state properly
     } catch (error) {
       console.error("Error fetching interview details:", error);
       setError("Error fetching interview details.");
@@ -51,7 +52,15 @@ const Page = () => {
       setLoading(false);
     }
   };
+  
 
+  useEffect(() => {
+    fetchInterviewDetails();
+    console.log(interviewDetails)
+  }, [params.interviewId]); // Only fetch when interviewId changes
+  useEffect(() => {
+    console.log("Updated interviewDetails:", interviewDetails);
+  }, [interviewDetails]);  
   const handleOptionSelect = (option) => {
     setSelectedOptions((prev) => ({ ...prev, [activeQuestionIndex]: option }));
   };
