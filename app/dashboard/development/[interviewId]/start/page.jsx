@@ -129,25 +129,7 @@ const Page = () => {
 
   return (
     <div className="scroll-smooth">
-      <Head>
-        <title>Development MCQ | AcePrep</title>
-        <meta name="description" content="AcePrep's development MCQ helps you test and refine your programming knowledge with real-world interview questions." />
-        <meta name="keywords" content="AcePrep,AcePrep Development MCQ, Development MCQ, Tech Interviews, Programming, Web Development, DSA, Coding Practice, Full-Stack Development" />
-        <meta name="author" content="Karan Kumar" />
 
-        {/* Open Graph (for social media previews) */}
-        <meta property="og:title" content="Development MCQ | AcePrep" />
-        <meta property="og:description" content="AcePrep's development MCQ helps you test and refine your programming knowledge with real-world interview questions." />
-        <meta property="og:url" content={`https://aceprepkaran-lucx.vercel.app/dashboard/development/${params.interviewId}/start`} />
-        <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://photos.fife.usercontent.google.com/pw/AP1GczP3DE3kpLXWFTYZfHzGYDysfdnCrjctV91nNg-PQ_ftJl74EJhsV_lI=w958-h539-s-no-gm?authuser=0" />
-
-        {/* Twitter Card */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Development MCQ | AcePrep" />
-        <meta name="twitter:description" content="AcePrep's development MCQ helps you test and refine your programming knowledge with real-world interview questions." />
-        <meta name="twitter:image" content="https://photos.fife.usercontent.google.com/pw/AP1GczP3DE3kpLXWFTYZfHzGYDysfdnCrjctV91nNg-PQ_ftJl74EJhsV_lI=w958-h539-s-no-gm?authuser=0" />
-      </Head>
 
       {loading ? (
         <p>Loading...</p>
