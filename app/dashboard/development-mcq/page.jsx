@@ -34,7 +34,7 @@ const handleSubmit =async (e) => {
     if (!user || !user.primaryEmailAddress) {
       console.log("User not found");
       alert("Login first")
-      router.push("sign-in")
+      router.push("/sign-in")
       setLoading(false);
       return;
   }
