@@ -154,7 +154,9 @@ const Page = () => {
   };
 
   return (
-    <div className="max-w-md w-full mx-auto p-4 md:p-8 text-gray-200 rounded-md min-h-screen bg-gray-900 dark:bg-gray-800 shadow-[0px_0px_48px_-6px_#ff24e1b3]">
+    <div className="min-h-screen">
+
+    <div className="max-w-md w-full mx-auto p-4 md:p-8 text-gray-200 rounded-md  bg-gray-900 dark:bg-gray-800 shadow-[0px_0px_48px_-6px_#ff24e1b3]">
       <h2 className="font-bold text-2xl text-gray-800 dark:text-white mb-4">
         Welcome to ACEPREP
       </h2>
@@ -241,6 +243,8 @@ const Page = () => {
           <p className="text-blue-500 font-medium">Generating DSA Questions...</p>
         </div>
       )}
+    </div>
+    
     </div>
   );
 };

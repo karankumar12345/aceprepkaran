@@ -2,7 +2,7 @@ import { SignIn, SignUp } from '@clerk/nextjs'
 
 export default function Page() {
     return (
-        <div className="grid grid-cols-1 md:grid-cols-1 h-screen relative">
+        <div className="grid grid-cols-1 md:grid-cols-1 h-screen relative bg-gray-900 text-white">
     
 
         {/* SignIn Section */}

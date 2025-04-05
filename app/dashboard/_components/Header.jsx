@@ -37,6 +37,8 @@ function Navbar({
            
           </div>
         </MenuItem>
+        <a href="/sign-in" className="text-white ">Login</a>
+
       </Menu>
     
     </div>)
