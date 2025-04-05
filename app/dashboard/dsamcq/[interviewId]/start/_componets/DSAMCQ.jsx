@@ -28,8 +28,8 @@ const DSAMCQ = ({ questions, activeQuestionIndex, selectedOption, onOptionSelect
           <button
             key={index}
             onClick={() => onOptionSelect(option)}
-            className={`block w-full text-left p-3 mb-2 rounded transition bg-gray-900 duration-300 
-              ${selectedOption === option ? 'bg-blue-600 text-white hover:scale-[1.1]' : 'bg-gray-600 text-black hover:scale-[1.1] hover:bg-blue-100'}`}
+            className={`block w-full text-left p-3 mb-2 rounded transition bg-gray-900 duration-300 border  
+              ${selectedOption === option ? 'bg-blue-900 text-white hover:scale-[1.1]' : 'bg-gray-600 text-white hover:scale-[1.1] hover:bg-blue-100'}`}
           >
             {option}
           </button>

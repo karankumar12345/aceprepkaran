@@ -27,7 +27,7 @@ export default function Home() {
         </p>
         <img src="https://www.ttnews.com/sites/default/files/2023-09/iTECH-Dysart-1200.jpg" className=" m-5 w-[300px] h-[400px] rounded-full shadow-[1px_1px_48px_-6px_#ff24e1b3]"/>
         <Link href="/dashboard" className="flex items-center justify-center">
-          <div className="  md:space-x-8 mt-6  text-center text-gray-200 bg-gray-900 shadow-md rounded-lg p-5 m-3 w-80  border border-cyan-500 hover:scale-[1.1]">
+          <div className="  md:space-x-8 mt-6  text-center text-gray-200 bg-red-800 shadow-md rounded-full p-5 m-3 w-80  border border-cyan-500 hover:scale-[1.1]">
             Dashboard
           </div>
           </Link>

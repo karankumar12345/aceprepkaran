@@ -28,7 +28,7 @@ const Question = ({ questions, activeQuestionIndex, selectedOption, onOptionSele
             key={index}
             onClick={() => onOptionSelect(option)}
             className={`block w-full text-left p-3 mb-2 rounded-full transition duration-300  border border-red-100
-              ${selectedOption === option ? 'bg-blue-600 text-white hover:scale-[1.2]' : 'bg-gray-800 text-black hover:scale-[1.1]'}`}
+              ${selectedOption === option ? 'bg-blue-600 text-white hover:scale-[1.2]' : 'bg-gray-800 text-white hover:scale-[1.1]'}`}
           >
             {option}
           </button>

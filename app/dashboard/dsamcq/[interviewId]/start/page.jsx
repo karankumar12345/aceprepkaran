@@ -164,7 +164,7 @@ const Page = ({ params }) => {
               onClick={handleNext}
               disabled={activeQuestionIndex === interviewDetails.length - 1}
               className={`px-4 py-2 rounded shadow-lg transition duration-300 
-                  ${activeQuestionIndex === interviewDetails.length - 1 ? 'bg-gray-300 text-gray-500 hover:scale-[1.4]' : 'bg-blue-600 text-white hover:bg-blue-700 hover:scale-[1.4]'}`}
+                  ${activeQuestionIndex === interviewDetails.length - 1 ? 'bg-gray-300 text-gray-500 ' : 'bg-blue-600 text-white '}`}
             >
               Next
             </button>

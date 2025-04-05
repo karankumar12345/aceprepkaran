@@ -11,7 +11,7 @@ const DashboardLayout = ({children}) => {
      <Toaster />
      
 
-<div className='fixed top-10 left-20'>
+<div className='fixed top-10 right-10'>
 <UserButton/>
 </div>
 
