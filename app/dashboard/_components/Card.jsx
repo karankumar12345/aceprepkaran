@@ -6,15 +6,15 @@ import React from "react";
 const Card = ({ data, linkto }) => {
   return (
     
-    <div className="w-full max-w-7xl mx-auto px-0">
-    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+    <div className=" ">
+    <div className="flex flex-wrap gap-4 justify-center items-start p-4">
       {data?.map((item, index) => {
         const formattedDate = dayjs(item.createdAt).format("YYYY-MM-DD");
   
         return (
           <div
             key={index}
-            className="min-w-[200px] w-full max-w-sm mr-auto border border-yellow-100 rounded-2xl p-4 flex flex-col justify-between hover:scale-[1.02] transition-all duration-300 hover:shadow-xl shadow-[0px_0px_48px_-6px_#ff24e1b3]"
+            className="min-w-[250px] m-auto  border max-[600px]:justify-center border-yellow-100 rounded-2xl p-4  flex flex-col justify-between  hover:scale-[1.02] transition-all duration-300 hover:shadow-xl shadow-[0px_0px_48px_-6px_#ff24e1b3]"
           >
             {/* Tag */}
             <div className="flex justify-end">

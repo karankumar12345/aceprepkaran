@@ -18,7 +18,7 @@ function Dashboard() {
   };
 
   return (
-    <div className=" mt-10 p-10 min-h-screen w-full flex flex-col bg-gray-900 text-gray-300">
+    <div className=" mt-10 p-10 min-h-screen  flex flex-col bg-gray-900 text-gray-300 overflow-x-hidden">
       <h2 className='font-bold text-2xl flex items-center justify-center text-center'>Dashboard</h2>
       <button 
           onClick={handleAddInterview}
