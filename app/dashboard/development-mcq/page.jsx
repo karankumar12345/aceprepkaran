@@ -31,6 +31,13 @@ const page = () => {
 const handleSubmit =async (e) => {
     e.preventDefault();
     setLoading(true)
+    if (!user || !user.primaryEmailAddress) {
+      console.log("User not found");
+      alert("Login first")
+      router.push("sign-in")
+      setLoading(false);
+      return;
+  }
     const inputPrompt = `Generate exactly ${formData.questions} DEVELOPMENT MCQs with answers based on the following details:
     {
        

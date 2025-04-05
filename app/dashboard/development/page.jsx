@@ -40,6 +40,7 @@ const Page = () => {
         if (!user || !user.primaryEmailAddress) {
             console.log("User not found");
             alert("Login first")
+            router.push("sign-in")
             setLoading(false);
             return;
         }
