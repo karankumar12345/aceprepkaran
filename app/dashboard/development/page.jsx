@@ -10,7 +10,9 @@ import { db } from '@/utils/db';
 import { MockInterview } from '@/utils/schema';
 import { v4 as uuidv4 } from 'uuid';
 
+ 
 const Page = () => {
+ 
     const [formData, setFormData] = useState({
         jobPosition: "",
         jobDesc: "",
@@ -37,6 +39,7 @@ const Page = () => {
 
         if (!user || !user.primaryEmailAddress) {
             console.log("User not found");
+            alert("Login first")
             setLoading(false);
             return;
         }
