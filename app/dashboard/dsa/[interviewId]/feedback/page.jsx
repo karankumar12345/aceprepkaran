@@ -54,7 +54,7 @@ const Page = ({ params }) => {
                 return <div key={idx}>Invalid code format</div>;
             }
             return code.split("\n").map((line, lineIdx) => (
-                <div key={`${idx}-${lineIdx}`} className="bg-gray-100 p-1 rounded my-1">
+                <div key={`${idx}-${lineIdx}`} className=" p-1 rounded my-1">
                     {line}
                 </div>
             ));
@@ -66,7 +66,7 @@ const Page = ({ params }) => {
     if (error) return <div>Error: {error}</div>;
 
     return (
-        <div className="p-10">
+        <div className="p-10 min-h-screen bg-gray-900 text-gray-200">
             <h2 className="text-3xl font-bold text-green-900">Congratulations!</h2>
             <h2 className="font-bold text-2xl">Here is Your Interview Feedback</h2>
 
@@ -99,10 +99,10 @@ const Page = ({ params }) => {
                                 </button>
 
                                 {isActive && (
-                                    <div className="mt-3 p-3 border rounded bg-gray-50">
+                                    <div className="mt-3 p-3 border rounded">
                                         <h5 className="font-semibold">Select Code Type:</h5>
                                         <select
-                                            className="my-2 p-1 border rounded"
+                                            className="my-2 p-1 border rounded bg-gray-900"
                                             value={feedback.codeType || "optimized"}
                                             onChange={(e) =>
                                                 setFeedbackData((prev) =>
@@ -124,7 +124,7 @@ const Page = ({ params }) => {
                                             : renderCodeLineByLine(correctAnswer.optimized)}
 
                                         <h5 className="font-semibold mt-4">Your Answer:</h5>
-                                        <div className="bg-gray-100 p-2 rounded">
+                                        <div className=" p-2 rounded">
                                             {feedback.userAnswer || "No answer provided."}
                                         </div>
 
@@ -132,7 +132,7 @@ const Page = ({ params }) => {
                                         <p>{feedback.feedback || "No feedback available."}</p>
 
                                         <h5 className="font-semibold mt-4">Code Feedback:</h5>
-                                        <div className="bg-gray-100 p-2 rounded">
+                                        <div className=" p-2 rounded">
                                             {feedback.codeFeedback || "No code feedback provided."}
                                         </div>
 

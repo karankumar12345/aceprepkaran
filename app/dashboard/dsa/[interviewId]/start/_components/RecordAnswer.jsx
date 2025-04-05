@@ -161,6 +161,10 @@ const RecordAnswer = ({ activeQuestionIndex, mockInterviewQuestion, interviewId 
     setUserAnswer("");
     setUserCode("");
   };
+  
+  const resetText=()=>{
+    setUserAnswer("")
+  }
 
   const cleanResponse = (response) => {
     return response
@@ -182,7 +186,14 @@ const RecordAnswer = ({ activeQuestionIndex, mockInterviewQuestion, interviewId 
         )}
       </Button>
 
-      <div className="mt-5 p-3 border border-gray-300 rounded-lg">
+      <div className="mt-5 p-3 rounded-lg">
+      <input
+  type="text"
+  value={userAnswer}
+  onChange={(e) => setUserAnswer(e.target.value)}
+  placeholder="Type your answer..."
+  className="w-full px-4 py-3 rounded-xl border border-gray-700 bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition duration-200"
+/>
         <h3 className="text-lg font-semibold">Your Answer:</h3>
         <p>{userAnswer || "No answer recorded yet."}</p>
       </div>
@@ -202,7 +213,7 @@ const RecordAnswer = ({ activeQuestionIndex, mockInterviewQuestion, interviewId 
           }}
         />
       </div>
-
+      <Button onClick={resetText} className="bg-purple-900 text-white">Record Again</Button>
       <Button onClick={updateUserAnswer} className="bg-purple-900 text-white">
         Submit Answer
       </Button>

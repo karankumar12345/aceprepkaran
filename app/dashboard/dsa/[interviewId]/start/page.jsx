@@ -93,7 +93,7 @@ setInterviewDetails(interviewQuestions)
   };
 
   return (
-    <div className="scroll-smooth">
+    <div className="scroll-smooth min-h-screen bg-gray-900 text-gray-200">
       {loading ? (
         <p>Loading...</p>
       ) : error ? (

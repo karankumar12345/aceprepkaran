@@ -13,7 +13,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 const page = () => {
     const [formData, setFormData] = useState({
-        name: "",
+        question: "",
         language: "",
         level: "",
         category: "",
@@ -41,9 +41,9 @@ const page = () => {
         }
 
 
-        const inputPrompt = `Generate exactly 20 DSA MCQs with answers based on the following details:
+        const inputPrompt = `Generate exactly ${formData.question} DSA MCQs with answers based on the following details:
         {
-            "Name": "${formData.name}",
+        
             "Language": "${formData.language}",
             "Proficiency Level": "${formData.level}",
             "Category": "${formData.category}"
@@ -92,7 +92,7 @@ const page = () => {
         const result0 = await db.insert(DsaMcq).values({
             DSAMCQId: uuidv4(),
             jsondsaResp: JSON.stringify(jsonResponse),
-            name: formData.name,
+            name: user.primaryEmailAddress.emailAddress,
             language: formData.language,
             difficulty: formData.level,
             category: formData.category,
@@ -108,23 +108,23 @@ const page = () => {
     };
 
     return (
-        <div className="flex items-center justify-center">
-            <div className="p-4 sm:p-6 lg:p-10 bg-gray-200 rounded-lg shadow-lg max-w-lg w-full h-1/2">
-                <h1 className="text-3xl font-bold text-gray-800 mb-4 text-center">Welcome to AcePrep</h1>
+        <div className="flex  min-h-screen items-center justify-center ">
+            <div className="p-4 sm:p-6 lg:p-10 bg-gray-900 text-gray-200 rounded-lg shadow-[0px_0px_48px_-6px_#ff24e1b3] max-w-lg w-full h-1/2">
+                <h1 className="text-3xl font-bold text-gray-300 mb-4 text-center">Welcome to AcePrep</h1>
                 <h2 className="font-bold text-lg sm:text-xl mb-4 sm:mb-5 text-center">DSA MCQ</h2>
                 <form onSubmit={handleSubmit}>
     <div className="flex flex-col items-center">
-        <label className="text-gray-600 font-medium">Enter Your Name</label>
-        <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Karan Kumar" required className="w-full p-2 border rounded-md mt-2" />
+        <label className="text-gray-200 font-medium">No of Question</label>
+        <input type="text" name="question" value={formData.question} onChange={handleChange} placeholder="1-20" required className="w-full p-2 border bg-gray-900 rounded-md mt-2" />
     </div>
     <div className="flex flex-col items-center">
-        <label className='text-gray-500 font-medium'>Your Proficient Level</label>
+        <label className='text-gray-200 font-medium'>Your Proficient Level</label>
         <select
             name="level"
             onChange={handleChange}
             value={formData.level}
             required
-            className='w-full p-2 border rounded-md mt-2'
+            className='w-full p-2 border rounded-md mt-2 bg-gray-900'
         >
             <option value="" disabled>Select Your level</option>
             <option value="beginner">Beginner</option>
@@ -135,7 +135,7 @@ const page = () => {
     </div>
 
     <div className="flex flex-col items-center">
-        <label className='text-gray-600 font-medium'>Enter Topic Name</label>
+        <label className='text-gray-200 font-medium'>Enter Topic Name</label>
         <input
             type="text"
             name="category"
@@ -143,12 +143,12 @@ const page = () => {
             onChange={handleChange}
             placeholder="e.g., Array, String, etc."
             required
-            className="w-full p-2 border rounded-md mt-2"
+            className="w-full p-2 border rounded-md mt-2 bg-gray-900"
         />
     </div>
 
     <div className="flex flex-col items-center">
-        <label className="text-gray-700 font-medium">Programming Language</label>
+        <label className="text-gray-200 font-medium">Programming Language</label>
         <input
             type="text"
             name="language"
@@ -156,7 +156,7 @@ const page = () => {
             onChange={handleChange}
             placeholder="C++, Java, Python, etc."
             required
-            className="w-full p-2 border rounded-md mt-2"
+            className="w-full p-2 border rounded-md mt-2 bg-gray-900"
         />
     </div>
 

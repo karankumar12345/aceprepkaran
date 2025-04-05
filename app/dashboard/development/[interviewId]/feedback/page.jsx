@@ -1,122 +1,124 @@
 "use client";
-import { useEffect, useState } from 'react';
-import { db } from '@/utils/db';
 import { eq } from 'drizzle-orm';
-import { DeveMCQAnswer } from '@/utils/schema';
-import { Volume2 } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { db } from '@/utils/db';
+import { MockInterviewAnswer } from '@/utils/schema';
 
-const FeedbackPage = ({ params }) => {
-  const { interviewId } = params; // Extract the interview ID from the params
-  const [feedbackData, setFeedbackData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+const Page = ({ params }) => {
+    const interviewId = params["interviewId"];
+    const [feedbackData, setFeedbackData] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [selectedQuestionIndex, setSelectedQuestionIndex] = useState(null);
+    const [showFeedback, setShowFeedback] = useState(false);
+    const [codeType, setCodeType] = useState("optimized");
 
-  useEffect(() => {
-    fetchFeedback();
-  }, [interviewId]);
+    useEffect(() => {
+        const getFeedback = async () => {
+            setLoading(true);
+          console.log("karan")
+          console.log(interviewId)
+            try {
+                const result = await db
+                    .select()
+                    .from(MockInterviewAnswer)
+                    .where(eq(MockInterviewAnswer.interviewId, interviewId));
+                
+                console.log("Query Result:", result); // Add this to log the full query result
+                if (result.length > 0) {
+                    setFeedbackData(result);
+                } else {
+                    setError("No feedback found for this interview ID.");
+                }
+            } catch (error) {
+                console.error("Error fetching feedback:", error);
+                setError("Failed to fetch feedback.");
+            } finally {
+                setLoading(false);
+            }
+        };
+        
 
-  const textToSpeech = (text) => {
-    if ('speechSynthesis' in window) {
-      const utterance = new SpeechSynthesisUtterance(text);
-      window.speechSynthesis.speak(utterance);
-    } else {
-      alert('Speech synthesis not supported');
+        getFeedback();
+    }, [interviewId]);
+
+    if (loading) {
+        return <div>Loading...</div>;
     }
-  };
 
-  const fetchFeedback = async () => {
-    try {
-      const result = await db
-        .select()
-        .from(DeveMCQAnswer)
-        .where(eq(DeveMCQAnswer.interviewIdRef, interviewId))
-        .orderBy(DeveMCQAnswer.createdOn, 'asc');
-
-      if (result.length === 0) {
-        setError("No feedback data found for this interview.");
-        return;
-      }
-
-      setFeedbackData(result);
-    } catch (error) {
-      console.error("Error fetching feedback:", error);
-      setError("An error occurred while fetching feedback. Please try again.");
-    } finally {
-      setLoading(false);
+    if (error) {
+        return <div>Error: {error}</div>;
     }
-  };
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
+    const handleSelect = (index) => {
+        if (selectedQuestionIndex === index) {
+            setShowFeedback(!showFeedback);
+        } else {
+            setSelectedQuestionIndex(index);
+            setShowFeedback(true);
+        }
+    };
 
-  const handleNext = () => {
-    if (currentQuestionIndex < feedbackData.length - 1) {
-      setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
-    }
-  };
+    const renderCodeLineByLine = (code) => {
+        if (!code || typeof code !== 'string') return <p>No code available.</p>;
+        return code.split('\n').map((line, index) => (
+            <div key={index} className='bg-gray-100 p-1 rounded my-1'>{line}</div>
+        ));
+    };
+    console.log(feedbackData)
 
-  const handlePrev = () => {
-    if (currentQuestionIndex > 0) {
-      setCurrentQuestionIndex((prevIndex) => prevIndex - 1);
-    }
-  };
+    return (
+        <div className='p-10 bg-gray-900 text-gray-200 min-h-screen '>
+            <h2 className='text-3xl font-bold text-green-900'>Congratulations!</h2>
+            <h2 className='font-bold text-2xl'>Here is Your Interview Feedback</h2>
 
-  const currentFeedback = feedbackData[currentQuestionIndex];
-  const isCorrect = currentFeedback?.userAnswers === currentFeedback?.correctAnswers;
+            {feedbackData.length > 0 && (
+                <div>
+                    {/* Overall Rating Display */}
+                    <h2 className='text-primary text-lg my-3'>
+                        Your Overall Rating: {feedbackData.reduce((acc, curr) => acc + (curr.rating || 0), 0) / feedbackData.length || "N/A"}
+                    </h2>
+                    <h2>Find Below Interview Questions with Correct Answers:</h2>
 
-  return (
-    <>
+                    <div>
+                        {feedbackData.map((feedback, index) => {
+                       
 
-    <div className='p-10'>
-      <h2 className='text-3xl font-bold text-green-900'>Feedback</h2>
-      <h3 className='font-bold text-2xl'>Question #{currentQuestionIndex + 1}</h3>
-      
-      <div className={`p-4 my-3 border rounded ${isCorrect ? 'bg-blue-100' : 'bg-red-100'}`}>
-        <h4 className='font-semibold'>Question:</h4>
-        <p>{currentFeedback?.questions}</p>
+                            return (
+                                <div key={index} className='my-3'>
+                                    <h3 className='font-bold'>{feedback.question}</h3>
+                                    <button 
+                                        className='bg-blue-500 text-white px-2 py-1 rounded' 
+                                        onClick={() => handleSelect(index)}
+                                    >
+                                        Select
+                                    </button>
 
-        <h4 className='font-semibold'>Your Answer:</h4>
-        <p>{currentFeedback?.userAnswers || 'No answer provided'}</p>
+                                    {selectedQuestionIndex === index && showFeedback && (
+                                        <div className='mt-2'>
+                                            <h4 className='font-semibold'>Your Answer:</h4>
+                                            <div className='bg-gray-900 p-2 rounded'>{feedback.userAnswer || "No answer provided."}</div>
 
-        <h4 className='font-semibold'>Correct Answer:</h4>
-        <p>{currentFeedback?.correctAnswers}</p>
+                                            <h4 className='font-semibold'>Feedback:</h4>
+                                            <p>{feedback.feedback || "No feedback available."}</p>
 
-        <h4 className='font-semibold'>Explanation:</h4>
-        <p>
-          {isCorrect
-            ? 'Your answer is correct!'
-            : `Your answer is incorrect. The correct answer is "${currentFeedback?.correctAnswers}".`}
-        </p>
-        <Volume2 onClick={() => textToSpeech(`The correct answer is ${currentFeedback?.correctAnswers}`)} className='cursor-pointer' />
-      </div>
-
-      <div className='flex justify-between mt-5'>
-        <button
-          onClick={handlePrev}
-          disabled={currentQuestionIndex === 0}
-          className={`px-4 py-2 rounded ${currentQuestionIndex === 0 ? 'bg-gray-300' : 'bg-blue-600 text-white hover:bg-blue-700'}`}
-        >
-          Previous
-        </button>
-        <button
-          onClick={handleNext}
-          disabled={currentQuestionIndex === feedbackData.length - 1}
-          className={`px-4 py-2 rounded ${currentQuestionIndex === feedbackData.length - 1 ? 'bg-gray-300' : 'bg-blue-600 text-white hover:bg-blue-700'}`}
-        >
-          Next
-        </button>
-      </div>
-
-      <div className='mt-5'>
-        <h4 className='font-semibold'>Your Score:</h4>
-        <p>
-          {feedbackData.filter(item => item.userAnswers === item.correctAnswers).length} / {feedbackData.length}
-        </p>
-      </div>
-    </div>
-    </>
-  );
+                                            
+                                            <div className='mt-3'>
+                                                <h4 className='font-semibold'> correct Answer :</h4>
+                                                <p>
+                                                   {feedback.correctAnswer}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+            )}
+        </div>
+    );
 };
 
-export default FeedbackPage;
+export default Page;

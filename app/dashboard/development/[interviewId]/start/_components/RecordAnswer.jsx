@@ -129,6 +129,9 @@ const RecordAnswer = ({ activeQuestionIndex, mockInterviewQuestion, interviewId 
     setUserAnswer("");
   };
 
+  const resetText=()=>{
+    setUserAnswer("")
+  }
   const cleanResponse = (response) => {
     return response
       .replace(/^\s+|\s+$/g, '') // Trim whitespace from both ends
@@ -142,7 +145,7 @@ const RecordAnswer = ({ activeQuestionIndex, mockInterviewQuestion, interviewId 
       <Button onClick={toggleRecording} className="bg-purple-900 text-white">
         {isRecording ? (
           <div className="flex items-center space-x-2">
-            <Mic className="animate-pulse h-5 w-5" />
+            <Mic className="animate-pulse h-5 w-5" /> 
             <span>Recording... Click to Stop</span>
           </div>
         ) : (
@@ -150,9 +153,18 @@ const RecordAnswer = ({ activeQuestionIndex, mockInterviewQuestion, interviewId 
         )}
       </Button>
       <div className="mt-4">
-        <h3 className="text-lg font-semibold">User Answer:</h3>
-        <p>{userAnswer || "No text recorded yet."}</p>
+      <input
+  type="text"
+  value={userAnswer}
+  onChange={(e) => setUserAnswer(e.target.value)}
+  placeholder="Type your answer..."
+  className="w-full px-4 py-3 rounded-xl border border-gray-700 bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition duration-200"
+/>
+
+        <p>{userAnswer || "No text recorded or Type yet."}</p>
       </div>
+
+      <Button onClick={resetText} className="bg-purple-900 text-white">Record Again</Button>
       <Button onClick={updateUserAnswer} className="bg-purple-900 text-white">Submit Answer</Button>
     </div>
   );

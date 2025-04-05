@@ -52,3 +52,10 @@ drizzle.config.ts
 *.sublime-workspace
 *.sublime-project
 *.swp
+
+# next-video
+y/*
+!y/*.json
+!y/*.js
+!y/*.ts
+public/_next-video

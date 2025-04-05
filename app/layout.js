@@ -20,7 +20,7 @@ const geistMono = localFont({
 });
 export const metadata = {  
   title: "AcePrep | Elevate Your Interview Preparation",  
-  description: "AcePrep is your go-to platform for AI-powered mock interviews, coding practice, quizzes, and expert guidance to crack top tech interviews.",  
+  description: "Mock Interviews for AI-powered mock interviews, coding practice, quizzes, and expert guidance to crack top tech interviews.",  
   keywords: [
     "AcePrep",
     "Mock Interviews",
@@ -66,14 +66,16 @@ export default function RootLayout({ children }) {
  <html lang="en">
  <head>
  <meta name="google-site-verification" content="EMRmOscRW_F2FevSrX3DYYlXCsXA5A80jolVHKYJG8Y" />
-        <link rel="icon" href="/karankumar.jpg" sizes="any" />
+        <link rel="icon" href="https://images.genai.works/logo_1792551d36.jpg" sizes="any" />
         <meta property="og:image" content="https://photos.fife.usercontent.google.com/pw/AP1GczP3DE3kpLXWFTYZfHzGYDysfdnCrjctV91nNg-PQ_ftJl74EJhsV_lI=w958-h539-s-no-gm?authuser=0" />
         <meta name="twitter:image" content="https://photos.fife.usercontent.google.com/pw/AP1GczP3DE3kpLXWFTYZfHzGYDysfdnCrjctV91nNg-PQ_ftJl74EJhsV_lI=w958-h539-s-no-gm?authuser=0" />
       </head>
    <body>
-     
+
+   <Header/>
      {children}
-     <Header/>
+    
+  
    </body>
  </html>
 </ClerkProvider>

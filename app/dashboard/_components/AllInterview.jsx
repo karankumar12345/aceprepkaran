@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useUser } from '@clerk/nextjs';
 import { db } from '@/utils/db';
 import { eq } from 'drizzle-orm'; // Import the eq function for the query
-import Card from '../../../components/Card';
+// import Card from '../../../components/Card';
 import DsaCard from '../../../components/DsaALL';
 import MockInterveiew from '../../../components/MockInterview';
 import DsCard from '../../../components/dsamcq';
 import { DevelopmentMCQ, DsaMcq, Interview, MockInterview } from '@/utils/schema';
+import Card from './Card';
 
 const InterviewList = () => {
     const [developmentMCQ, setDevelopmentMCQ] = useState([]);
@@ -17,6 +18,7 @@ const InterviewList = () => {
     const [error, setError] = useState(null);
     const { user } = useUser();
 
+    
     const getDevelopmentMcq = async () => {
         setLoading(true);
         setError(null);
@@ -134,38 +136,33 @@ const InterviewList = () => {
             {/* Conditionally render headings and data without margins */}
             {developmentMCQ.length > 0 && (
                 <div>
-                    <h3 className="text-xl text-white">Development MCQ</h3>
-                    <Card data={developmentMCQ} linkto="development" />
+                    <h3 className="text-xl text-white flex items-center justify-center mt-[20px]">Development MCQ Feedback</h3>
+                    <Card data={developmentMCQ} linkto="development-mcq" />
                 </div>
             )}
 
             {interviewDetails.length > 0 && (
                 <div>
-                    <h3 className="text-xl text-white">DSA MCQ</h3>
-                    <DsCard data={interviewDetails} linkto="dsamcq" />
+                    <h3 className="text-xl text-white flex items-center justify-center mt-[20px]">DSA MCQ</h3>
+                    <Card data={interviewDetails} linkto="dsamcq" />
                 </div>
             )}
 
             {dsa.length > 0 && (
                 <div>
-                    <h3 className="text-xl text-white">DSA Interview</h3>
-                    <DsaCard data={dsa} />
+                    <h3 className="text-xl text-white flex items-center justify-center mt-[20px]">DSA Interview</h3>
+                    <Card data={dsa}  linkto="dsa"/>
                 </div>
             )}
 
             {mock.length > 0 && (
                 <div>
-                    <h3 className="text-xl text-white">Mock Interviews</h3>
-                    <MockInterveiew data={mock} />
+                    <h3 className="text-xl text-white flex items-center justify-center mt-[20px]">Mock Interviews</h3>
+                    <Card  data={mock} linkto="development" />
                 </div>
             )}
 
-            {/* Show error if no data is found */}
-            {error && (
-                <div className="text-red-500 mt-8 text-center">
-                    <p>{error}</p>
-                </div>
-            )}
+         
         </div>
     );
 };

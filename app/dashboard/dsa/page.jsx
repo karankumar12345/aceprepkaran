@@ -12,7 +12,7 @@ import { v4 as uuidv4 } from "uuid";
 const Page = () => {
   const { toast } = useToast();
   const [formData, setFormData] = useState({
-    name: "",
+
     experience: "",
     dsaTopics: "",
     level: "",
@@ -35,9 +35,9 @@ const Page = () => {
     setLoading(true);
 
     const inputPrompt = `
-    Generate 3 DSA interview questions with answers based on the following details:
+    Generate 3 DSA interview leetcode  questions with answers based on the following details:
     
-    - Name: ${formData.name}
+    
     - Years of Experience: ${formData.experience}
     - DSA Topics: ${formData.dsaTopics}
     - Proficiency Level: ${formData.level}
@@ -113,7 +113,7 @@ const Page = () => {
         .values({
           interviewId: uuidv4(),
           jsoninterResp: JSON.stringify(jsonResponse),
-          name: formData.name,
+          name: user.primaryEmailAddress.emailAddress,
           experience: formData.experience,
           dsaTopics: formData.dsaTopics,
           level: formData.level,
@@ -147,30 +147,18 @@ const Page = () => {
   };
 
   return (
-    <div className="max-w-md w-full mx-auto p-4 md:p-8 shadow-lg rounded-md bg-white dark:bg-gray-800">
+    <div className="max-w-md w-full mx-auto p-4 md:p-8 text-gray-200 rounded-md min-h-screen bg-gray-900 dark:bg-gray-800 shadow-[0px_0px_48px_-6px_#ff24e1b3]">
       <h2 className="font-bold text-2xl text-gray-800 dark:text-white mb-4">
         Welcome to ACEPREP
       </h2>
-      <p className="text-gray-600 text-sm dark:text-gray-300 mb-6">
+      <p className="text-gray-200 text-sm dark:text-gray-300 mb-6">
         DSA Question - Select an interesting topic to start your session.
       </p>
       <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="block text-gray-700 dark:text-gray-200 mb-1">
-            Your Name
-          </label>
-          <input
-            onChange={handleChange}
-            placeholder="Karan Kumar"
-            name="name"
-            type="text"
-            required
-            className="w-full p-2 border rounded-md"
-          />
-        </div>
+      
 
         <div>
-          <label className="block text-gray-700 dark:text-gray-200 mb-1">
+          <label className="block text-gray-200 dark:text-gray-200 mb-1">
             Language
           </label>
           <input
@@ -179,12 +167,12 @@ const Page = () => {
             type="text"
             required
             onChange={handleChange}
-            className="w-full p-2 border rounded-md"
+            className="w-full p-2 border rounded-md bg-gray-900"
           />
         </div>
 
         <div>
-          <label className="block text-gray-700 dark:text-gray-200 mb-1">
+          <label className="block text-gray-200 dark:text-gray-200 mb-1">
             DSA Topics
           </label>
           <input
@@ -193,12 +181,12 @@ const Page = () => {
             onChange={handleChange}
             type="text"
             required
-            className="w-full p-2 border rounded-md"
+            className="w-full p-2 border rounded-md bg-gray-900"
           />
         </div>
 
         <div>
-          <label className="block text-gray-700 dark:text-gray-200 mb-1">
+          <label className="block text-gray-200 dark:text-gray-200 mb-1">
             Experience (in years)
           </label>
           <input
@@ -207,12 +195,12 @@ const Page = () => {
             type="number"
             required
             onChange={handleChange}
-            className="w-full p-2 border rounded-md"
+            className="w-full p-2 border rounded-md bg-gray-900"
           />
         </div>
 
         <div>
-          <label className="block text-gray-700 dark:text-gray-200 mb-1">
+          <label className="block text-gray-200 dark:text-gray-200 mb-1 bg-gray-900">
             Your Proficiency Level
           </label>
           <select
@@ -220,7 +208,7 @@ const Page = () => {
             value={formData.level}
             onChange={handleChange}
             required
-            className="w-full p-2 border rounded-md"
+            className="w-full p-2 border rounded-md bg-gray-900"
           >
             <option value="" disabled>
               Select your level
@@ -233,7 +221,7 @@ const Page = () => {
 
         <button
           type="submit"
-          className="w-full p-2 text-white bg-purple-600 rounded-md hover:bg-purple-700"
+          className="w-full p-2 text-white bg-purple-600 rounded-md hover:bg-purple-200"
           disabled={loading}
         >
           {loading ? "Generating..." : "Submit and Start Session"}

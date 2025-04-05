@@ -111,8 +111,8 @@ const CodeEditor = ({language, activequestionindex, mockInterviewQuestion,interv
   };
 
   return (
-<div className="p-5 border rounded-lg w-full h-[80vh] max-h-[80vh] overflow-hidden shadow-lg bg-white">
-  <h3 className="mb-4 font-bold text-lg text-gray-800">Code Editor</h3>
+<div className="p-5 border rounded-lg w-full h-[80vh] max-h-[80vh] overflow-hidden shadow-lg ">
+  <h3 className="mb-4 font-bold text-lg ">Code Editor</h3>
 
   {/* Code Editor Component */}
 

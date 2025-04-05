@@ -19,7 +19,7 @@ const DSAMCQ = ({ questions, activeQuestionIndex, selectedOption, onOptionSelect
   const currentQuestion = questions[activeQuestionIndex]; // Correctly reference the current question
 
   return (
-    <div className="p-5 border rounded-lg bg-gray-100">
+    <div className="p-5 border rounded-lg ">
       <h2 className="text-lg font-semibold mb-3">Question #{activeQuestionIndex + 1}</h2>
       <h2 className="text-lg font-semibold mb-3">{currentQuestion.question}</h2>
       <Volume2 onClick={() => texttospeech(currentQuestion.question)} className='cursor-pointer' />
@@ -28,8 +28,8 @@ const DSAMCQ = ({ questions, activeQuestionIndex, selectedOption, onOptionSelect
           <button
             key={index}
             onClick={() => onOptionSelect(option)}
-            className={`block w-full text-left p-3 mb-2 rounded transition duration-300 
-              ${selectedOption === option ? 'bg-blue-600 text-white' : 'bg-white text-black hover:bg-blue-100'}`}
+            className={`block w-full text-left p-3 mb-2 rounded transition bg-gray-900 duration-300 
+              ${selectedOption === option ? 'bg-blue-600 text-white hover:scale-[1.1]' : 'bg-gray-600 text-black hover:scale-[1.1] hover:bg-blue-100'}`}
           >
             {option}
           </button>

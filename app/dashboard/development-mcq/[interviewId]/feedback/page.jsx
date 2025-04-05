@@ -1,11 +1,9 @@
 "use client";
 import { useEffect, useState } from 'react';
 import { db } from '@/utils/db';
-
 import { eq } from 'drizzle-orm';
-import { DSAMCQAnswer } from '@/utils/schema';
+import { DeveMCQAnswer } from '@/utils/schema';
 import { Volume2 } from 'lucide-react';
-
 
 const FeedbackPage = ({ params }) => {
   const { interviewId } = params; // Extract the interview ID from the params
@@ -14,34 +12,32 @@ const FeedbackPage = ({ params }) => {
   const [error, setError] = useState(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
-
-  const texttospeech =(text)=>{
-    if('speechSynthesis' in window){
-      const utterance=new SpeechSynthesisUtterance(text);
-      window.speechSynthesis.speak(utterance);
-    }else{
-      alert('Speech synthesis not supported');
-    }
-  }
   useEffect(() => {
-  
-
     fetchFeedback();
   }, [interviewId]);
+
+  const textToSpeech = (text) => {
+    if ('speechSynthesis' in window) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      window.speechSynthesis.speak(utterance);
+    } else {
+      alert('Speech synthesis not supported');
+    }
+  };
 
   const fetchFeedback = async () => {
     try {
       const result = await db
         .select()
-        .from(DSAMCQAnswer)
-        .where(eq(DSAMCQAnswer.interviewIdRef, interviewId))
-        .orderBy(DSAMCQAnswer.createdOn, 'asc');
-      
+        .from(DeveMCQAnswer)
+        .where(eq(DeveMCQAnswer.interviewIdRef, interviewId))
+        .orderBy(DeveMCQAnswer.createdOn, 'asc');
+
       if (result.length === 0) {
         setError("No feedback data found for this interview.");
         return;
       }
-  
+
       setFeedbackData(result);
     } catch (error) {
       console.error("Error fetching feedback:", error);
@@ -50,7 +46,7 @@ const FeedbackPage = ({ params }) => {
       setLoading(false);
     }
   };
-  
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
@@ -67,30 +63,32 @@ const FeedbackPage = ({ params }) => {
   };
 
   const currentFeedback = feedbackData[currentQuestionIndex];
-  const isCorrect = currentFeedback.userAnswer === currentFeedback.correctAnswer;
-console.log(feedbackData)
+  const isCorrect = currentFeedback?.userAnswers === currentFeedback?.correctAnswers;
+
   return (
-    <div className='p-10 min-h-screen bg-gray-900 text-gray-200 shadow-[0px_0px_48px_-6px_#ff24e1b3]'>
+    <>
+
+    <div className='p-10 shadow-[0px_0px_48px_-6px_#ff24e1b3] text-gray-200 min-h-screen bg-gray-900'>
       <h2 className='text-3xl font-bold text-green-900'>Feedback</h2>
       <h3 className='font-bold text-2xl'>Question #{currentQuestionIndex + 1}</h3>
       
-      <div className={`p-4 my-3 border rounded shadow-[0px_0px_48px_-6px_#ff24e1b3] hover:scale-[1.1] ${isCorrect ? 'bg-blue-600' : 'bg-red-600'}`}>
+      <div className={`p-4 my-3 border rounded ${isCorrect ? 'bg-blue-900' : 'bg-red-600'} shadow-[10px_0px_48px_-6px_#ff24e1b3] hover:scale-[1.1]` }>
         <h4 className='font-semibold'>Question:</h4>
-        <p>{currentFeedback.question}</p>
+        <p>{currentFeedback?.questions}</p>
 
         <h4 className='font-semibold'>Your Answer:</h4>
-        <p>{currentFeedback.userAnswer || 'No answer provided'}</p>
+        <p>{currentFeedback?.userAnswers || 'No answer provided'}</p>
 
         <h4 className='font-semibold'>Correct Answer:</h4>
-        <p>{currentFeedback.correctAnswer}</p>
+        <p>{currentFeedback?.correctAnswers}</p>
 
         <h4 className='font-semibold'>Explanation:</h4>
         <p>
           {isCorrect
             ? 'Your answer is correct!'
-            : `Your answer is incorrect. The correct answer is "${currentFeedback.correctAnswer}".`}
+            : `Your answer is incorrect. The correct answer is "${currentFeedback?.correctAnswers}".`}
         </p>
-        <Volume2 onClick={()=>texttospeech( "The correct answer is"+ currentFeedback?.correctAnswer)}></Volume2>
+        <Volume2 onClick={() => textToSpeech(`The correct answer is ${currentFeedback?.correctAnswers}`)} className='cursor-pointer' />
       </div>
 
       <div className='flex justify-between mt-5'>
@@ -110,12 +108,14 @@ console.log(feedbackData)
         </button>
       </div>
 
-      {/* Display overall score */}
       <div className='mt-5'>
         <h4 className='font-semibold'>Your Score:</h4>
-        <p>{feedbackData.filter(item => item.userAnswer === item.correctAnswer).length} / {feedbackData.length}</p>
+        <p>
+          {feedbackData.filter(item => item.userAnswers === item.correctAnswers).length} / {feedbackData.length}
+        </p>
       </div>
     </div>
+    </>
   );
 };
 

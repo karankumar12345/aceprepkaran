@@ -138,7 +138,7 @@ const Page = ({ params }) => {
   };
 
   return (
-    <div className="scroll-smooth">
+    <div className="scroll-smooth shadow-[0px_0px_48px_-6px_#ff24e1b3] min-h-screen bg-gray-900 text-gray-200">
       {loading ? (
         <p>Loading...</p>
       ) : error ? (
@@ -151,12 +151,12 @@ const Page = ({ params }) => {
             selectedOption={selectedOptions[activeQuestionIndex]}
             onOptionSelect={handleOptionSelect}
           />
-          <div className="mt-5 flex space-x-3">
+          <div className="mt-5 flex space-x-3 justify-around">
             <button
               onClick={handlePrev}
               disabled={activeQuestionIndex === 0}
               className={`px-4 py-2 rounded shadow-lg transition duration-300 
-                  ${activeQuestionIndex === 0 ? 'bg-gray-300 text-gray-500' : 'bg-blue-600 text-white hover:bg-blue-700'}`}
+                  ${activeQuestionIndex === 0 ? 'bg-gray-300 text-gray-500 hover:scale-[1.4] rounded-ful' : 'bg-blue-600 text-white l hover:bg-blue-700 hover:scale-[1.4] rounded-full'}`}
             >
               Previous
             </button>
@@ -164,7 +164,7 @@ const Page = ({ params }) => {
               onClick={handleNext}
               disabled={activeQuestionIndex === interviewDetails.length - 1}
               className={`px-4 py-2 rounded shadow-lg transition duration-300 
-                  ${activeQuestionIndex === interviewDetails.length - 1 ? 'bg-gray-300 text-gray-500' : 'bg-blue-600 text-white hover:bg-blue-700'}`}
+                  ${activeQuestionIndex === interviewDetails.length - 1 ? 'bg-gray-300 text-gray-500 hover:scale-[1.4]' : 'bg-blue-600 text-white hover:bg-blue-700 hover:scale-[1.4]'}`}
             >
               Next
             </button>
